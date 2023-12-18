@@ -2,6 +2,8 @@
 import styles from './signup.module.scss'
 import { useState } from 'react';
 import Link from 'next/link';
+import Header from '../components/header/page';
+import Footer from '../components/footer/page';
 
 const SignUp = () => {
 
@@ -23,19 +25,7 @@ const SignUp = () => {
 
     return (
         <div className={ styles.signUp }>
-            <header>
-                <div className="row">
-                    <div className="col-lg-3">
-                        <h1>Alimentar com Saúde</h1>
-                    </div>
-                    <div className="col-lg-7">
-
-                    </div>
-                    <div className="col-lg-2">
-            
-                    </div>
-                </div>
-            </header>
+            <Header />
             <section className={ styles.subscribe }>
                 <div className="container">
                     <form className={ styles.singupFormulary } onSubmit={formHandle}>
@@ -120,6 +110,7 @@ const SignUp = () => {
                     </form>
                 </div>
             </section>
+            <Footer />
         </div>
     )
 }

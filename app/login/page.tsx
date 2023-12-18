@@ -1,23 +1,13 @@
 
 import Link from 'next/link'
 import styles from './login.module.scss'
+import Header from '../components/header/page'
+import Footer from '../components/footer/page'
 
 export default function Login() {
     return (
         <div className={ styles.login }>
-            <header>
-                <div className="row">
-                    <div className="col-lg-3">
-                        <h1>Alimentar com Saúde</h1>
-                    </div>
-                    <div className="col-lg-7">
-
-                    </div>
-                    <div className="col-lg-2">
-        
-                    </div>
-                </div>
-            </header>
+            <Header />
             <section className={ styles.formulary }>
                 <div className="container">
                     <div className={ styles.loginFormulary }>
@@ -46,6 +36,7 @@ export default function Login() {
                     </div>
                 </div>
             </section>
+            <Footer />
         </div>
     )
 }
