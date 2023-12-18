@@ -31,6 +31,11 @@
             label {
                 font-size: .8rem;
             }
+            a.backToLogin {
+                text-decoration: none;
+                color: var(--bs-green);
+                font-weight: 600;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 'use client';
 import styles from './signup.module.scss'
 import { useState } from 'react';
+import Link from 'next/link';
 
 const SignUp = () => {
 
@@ -15,18 +16,9 @@ const SignUp = () => {
         setAgreeTerms(!agreeTerms);
     }
 
-    const dataHandle = (event: any) => {
+    const formHandle = (event: any) => {
         event.preventDefault();
-        if(name === '' || email === '' || gender === '' || birthday === '' || agreeTerms === false) {
-            setShow(false);
-            return false;
-        } else {
-            setShow(true);
-            console.log({
-                name,email,gender,birthday,agreeTerms
-            });
-            return true;
-        }
+        console.log({name, email, gender, birthday, agreeTerms});
     }
 
     return (
@@ -46,14 +38,13 @@ const SignUp = () => {
             </header>
             <section className={ styles.subscribe }>
                 <div className="container">
-                    {name + email + gender + birthday + agreeTerms}
-                    <div className={ styles.singupFormulary }>
+                    <form className={ styles.singupFormulary } onSubmit={formHandle}>
                         <div className="row justify-content-center p-3">
                             <div className="col-12">
                                 <h2 className={ styles.formTitle }>Cadastro</h2>
                             </div>
                             <div className="alert alert-danger" role="alert" hidden={show}>
-                                Você deve preencher todos os campos do forulário e aceitar os termos!
+                                Você deve aceitar os termos de política e privacidade!
                             </div>
                             <div className="col-12">
                                 <div className="col mb-3">
@@ -64,15 +55,17 @@ const SignUp = () => {
                                         onChange={ (e) => setName(e.target.value) } 
                                         className="form-control" 
                                         placeholder='Nome' 
+                                        required
                                     />
                                 </div>
                                 <div className="col mb-3">
                                     <input 
-                                        type="text" 
+                                        type="email" 
                                         value={email} onChange={ (e) => setEmail(e.target.value) } 
                                         aria-label="email"
                                         className="form-control" 
                                         placeholder='E-mail' 
+                                        required
                                     />
                                 </div>
                                 <div className="col mb-3">
@@ -82,6 +75,8 @@ const SignUp = () => {
                                         aria-label="Data de nascimento"
                                         className='form-control' 
                                         placeholder='Data de nascimento' 
+                                        min="2005-12-20"
+                                        required
                                     />
                                 </div>
                                 <div className="col mb-3">
@@ -90,6 +85,7 @@ const SignUp = () => {
                                         aria-label="Gênero" 
                                         value={ gender } 
                                         onChange={ (e) => setGender(e.target.value) } 
+                                        required
                                         >
                                         <option defaultValue={""}>Escolha</option>
                                         <option value="masculino">Masculino</option>
@@ -105,18 +101,23 @@ const SignUp = () => {
                                             value= "terms" 
                                             name='agreeTerms'
                                             id="agreeTerms" 
-                                            onChange={() => Terms} />
+                                            onChange={() => Terms()} 
+                                            required 
+                                            />
                                         <label className="form-check-label" htmlFor="agreeTerms">
                                             Concordo com os termos de serviço e as políticas de privacidade.
                                         </label>
                                         </div>
                                     </div>
                                 <div className="col d-grid">
-                                    <button className='btn btn-primary' onClick={() => dataHandle}>Cadastrar</button>
+                                    <button type='submit' className='btn btn-primary'>Cadastrar</button>
+                                </div>
+                                <div className="col mt-3 text-center">
+                                    <Link href={"/login"} className={ styles.backToLogin }>Voltar para login</Link>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </section>
         </div>
