@@ -1,4 +1,5 @@
 
+import Link from 'next/link'
 import styles from './login.module.scss'
 
 export default function Login() {
@@ -38,7 +39,7 @@ export default function Login() {
                                     <a href='#' className={ styles.forgotMyPassword }>Esqueci minha senha</a>
                                 </div>
                                 <div className="col my-3 text-center">
-                                    <a href="#" className={ styles.signUp }>Quero me cadastrar!</a>
+                                    <Link href="/signup" className={ styles.signUp }>Quero me cadastrar!</Link>
                                 </div>
                             </div>
                         </div>
