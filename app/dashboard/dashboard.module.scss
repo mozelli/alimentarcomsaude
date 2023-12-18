@@ -1,0 +1,19 @@
+.dashboard {
+    section {
+        nav.sideMenu {
+            display: flex;
+            flex-direction: column;
+            max-width: 250px;
+
+            a {
+                text-decoration: none;
+                padding: .5rem .8rem;
+                color: var(--bs-gray-600);
+                font-weight: 600;
+            }
+            a:hover {
+                background-color: var(--bs-gray-300);
+            }
+        }
+    }
+}
