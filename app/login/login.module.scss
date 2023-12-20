@@ -1,19 +1,4 @@
 .login {
-    header {
-        background-color: var(--bs-green);
-        padding: .5rem 1rem;
-        
-        h1 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--bs-white);
-            margin: 0;
-        }
-        span.version {
-            color: var(--bs-white);
-            font-size: .8rem;
-        }
-    }
     section.formulary {
         margin: 0 auto;
         max-width: 500px;
