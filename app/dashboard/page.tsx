@@ -1,25 +1,22 @@
-import Link from 'next/link';
 import DashboardHeader from '../components/dashboardHeader/page';
 import Footer from '../components/footer/page';
 import styles from './dashboard.module.scss'
+import Display from '../components/display/page';
+import NavBar from '../components/navBar';
 
 const Dashboard = () => {
     return (
-        <div className={ styles.dashboard }>
+        <>
             <DashboardHeader />
-            <section>
-                <nav className={ styles.sideMenu }>
-                    <Link href="#" className={ styles.sideMenuLink }>Amigos</Link>
-                    <Link href="#" className={ styles.sideMenuLink }>Grupos</Link>
-                    <Link href="#" className={ styles.sideMenuLink }>Grupos</Link>
-                    <Link href="#" className={ styles.sideMenuLink }>Grupos</Link>
-                </nav>
-                <div className={ styles.feed }>
-
+            <div className={ styles.dashboard }>
+            
+                <div className={ styles.display }>
+                    <NavBar />
+                    <Display />
                 </div>
-            </section>
+            </div>
             <Footer />
-        </div>
+        </>
     )
 }
 
