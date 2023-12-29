@@ -4,7 +4,6 @@
         max-width: 500px;
         .loginFormulary {
             margin: 1rem 0;
-            padding: 1rem;
             border: 1px solid var(--bs-gray-400);
             border-radius: 4px;
             h2.formTitle {
@@ -21,6 +20,38 @@
                 text-decoration: none;
                 color: var(--bs-green);
                 font-weight: 700;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .login {
+        section.formulary {
+            .loginFormulary {
+                
+                h2.formTitle {
+                    margin: 1rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 375px) {
+    .login {
+        section.formulary {
+            .loginFormulary {
+                
+                h2.formTitle {
+                    margin: .5rem 0rem 1rem 0rem;
+                }
+                a.forgotMyPassword {
+                    font-size: .8rem;
+                }
+                a.signUp {
+                    font-size: .8rem;
+                }
             }
         }
     }
