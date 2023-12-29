@@ -9,7 +9,7 @@ const Dashboard = () => {
         <>
             <DashboardHeader />
             <div className={ styles.dashboard }>
-            
+
                 <div className={ styles.display }>
                     <NavBar />
                     <Display />
