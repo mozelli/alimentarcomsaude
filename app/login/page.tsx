@@ -3,56 +3,53 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import styles from './login.module.scss'
-import Header from '../components/header/page'
-import Footer from '../components/footer/page'
+import { useForm } from 'react-hook-form';
+import styles from './login.module.scss';
+import Header from '../components/header/page';
+import Footer from '../components/footer/page';
+
+interface IFormInput {
+    email: string;
+    password: string;
+}
 
 export default function Login() {
 
-    const [ email, setEmail] = useState('');
-    const [ password, setPassword ] = useState('');
+    const { register, handleSubmit, formState: {errors} } = useForm<IFormInput>();
+
     const [ rememberMe, setRememberMe ] = useState(false);
     const [ emailHelpBlock, setEmailHelpBlock ] = useState(true);
     const [ passwordHelpBlock, setPasswordHelpBlock ] = useState(true);
     const router = useRouter();
 
-    const handleLoginForm = (event: any) => {
-        event.preventDefault();
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const regexSenha = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*]{8,}$/;
-
-        if(regexEmail.test(email)) {
-            setEmailHelpBlock(true);  
-            if(regexSenha.test(password)) {
-                setPasswordHelpBlock(true);  
-                axios.post('http://localhost:3333/authenticate', {
-                    email,
-                    password
-                })
-                .then((response) => {
-                    if(response.status === 200) {
-                        const user = 
-                        {
-                            name: response.data.user.name,
-                            email: response.data.user.email,
-                            birthday: response.data.user.birthday,
-                            gender: response.data.user.gender,
-                            token: response.data.token
-                        }
-                        localStorage.setItem('user', JSON.stringify(user));
-                        sessionStorage.setItem('autenticated', 'true');
-                        router.replace('/dashboard');
+    const handleLoginForm = (data: any) => {
+        axios.post('http://localhost:3333/login', {
+            email: data.email,
+            password: data.password
+        })
+        .then((response) => {
+            console.log(response);
+            if(response.status === 200) {
+                const user = 
+                    {
+                        name: response.data.user.name,
+                        email: response.data.user.email,
+                        birthday: response.data.user.birthday,
+                        gender: response.data.user.gender,
                     }
-                })
-                .catch((error) => {
-                    console.error({ error });
-                });
-            } else {
-                setPasswordHelpBlock(false);
-            }              
-        } else {
-            setEmailHelpBlock(false);
-        }
+                    localStorage.setItem('user', JSON.stringify(user));
+                    if(rememberMe) {
+                        localStorage.setItem('access_token', response.data.token);
+                    } else {
+                        sessionStorage.setItem('access_token', response.data.token);
+                    }
+                    
+                    //router.replace('/dashboard');
+            }
+        })
+        .catch((error) => {
+            console.error({ error });
+        });
     }
 
     return (
@@ -66,37 +63,60 @@ export default function Login() {
                                 <h2 className={ styles.formTitle }>Login</h2>
                             </div>
                             <div className="col-xl-12">
-                                <form onSubmit={handleLoginForm}>
+                                <form onSubmit={ handleSubmit(handleLoginForm) }>
                                     <div className="col-xl-12 mb-3">
                                         <input 
                                             type="email" 
-                                            className="form-control" 
+                                            className={ `form-control ${errors?.email && "is-invalid"}`}
                                             placeholder='E-mail' 
-                                            value={ email }
-                                            onChange={ (event) => setEmail(event.target.value) } />
-                                        <div 
-                                            id="emailHelpBlock" 
-                                            className="form-text text-danger" 
-                                            hidden={ emailHelpBlock }
-                                            >
-                                            Informe um e-mail válido.
-                                        </div>
+                                            {
+                                                ...register('email', {
+                                                    required: true,
+                                                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                                                })
+                                            } 
+                                        />
+                                        { 
+                                            errors?.email?.type === 'required' 
+                                            &&  
+                                            <div className="invalid-feedback">
+                                                Informe seu e-mail.
+                                            </div>
+                                        }
+                                        { 
+                                            errors?.email?.type === 'pattern' 
+                                            &&  
+                                            <div className="invalid-feedback">
+                                                Informe um e-mail válido!
+                                            </div>
+                                        }
                                     </div>
                                     <div className="col-xl-12 mb-3">
                                         <input 
                                             type="password" 
-                                            className='form-control' 
+                                            className={ `form-control ${errors?.password && "is-invalid"}`}
                                             placeholder='Senha' 
-                                            value={ password } 
-                                            onChange={ (event) => setPassword(event.target.value) } />
-                                        <div 
-                                            id="passwordHelpBlock" 
-                                            className="form-text text-danger" 
-                                            hidden={ passwordHelpBlock }
-                                            
-                                            >
-                                            Sua senha deve conter letras e números.
-                                        </div>
+                                            {
+                                                ...register('password', {
+                                                    required: true,
+                                                    minLength: 6
+                                                })
+                                            } 
+                                        />
+                                        {       
+                                            errors?.password?.type === 'minLength' 
+                                            &&  
+                                            <div className="invalid-feedback">
+                                                A senha deve ter pelo menos 6 caracteres.
+                                            </div>
+                                        }
+                                        {       
+                                            errors?.password?.type === 'required' 
+                                            &&  
+                                            <div className="invalid-feedback">
+                                                Informe sua senha.
+                                            </div>
+                                        }
                                     </div>
                                     <div className="col-xl-12 mb-3">
                                         <div className="form-check">
