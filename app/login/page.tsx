@@ -1,7 +1,8 @@
-
 'use client';
 import Link from 'next/link'
 import React, { useState } from 'react'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import styles from './login.module.scss'
 import Header from '../components/header/page'
 import Footer from '../components/footer/page'
@@ -13,6 +14,7 @@ export default function Login() {
     const [ rememberMe, setRememberMe ] = useState(false);
     const [ emailHelpBlock, setEmailHelpBlock ] = useState(true);
     const [ passwordHelpBlock, setPasswordHelpBlock ] = useState(true);
+    const router = useRouter();
 
     const handleLoginForm = (event: any) => {
         event.preventDefault();
@@ -23,8 +25,27 @@ export default function Login() {
             setEmailHelpBlock(true);  
             if(regexSenha.test(password)) {
                 setPasswordHelpBlock(true);  
-                console.log({
-                    email, password, rememberMe
+                axios.post('http://localhost:3333/authenticate', {
+                    email,
+                    password
+                })
+                .then((response) => {
+                    if(response.status === 200) {
+                        const user = 
+                        {
+                            name: response.data.user.name,
+                            email: response.data.user.email,
+                            birthday: response.data.user.birthday,
+                            gender: response.data.user.gender,
+                            token: response.data.token
+                        }
+                        localStorage.setItem('user', JSON.stringify(user));
+                        sessionStorage.setItem('autenticated', 'true');
+                        router.replace('/dashboard');
+                    }
+                })
+                .catch((error) => {
+                    console.error({ error });
                 });
             } else {
                 setPasswordHelpBlock(false);
@@ -34,7 +55,6 @@ export default function Login() {
         }
     }
 
-
     return (
         <div className={ styles.login }>
             <Header />
@@ -42,12 +62,12 @@ export default function Login() {
                 <div className="container">
                     <div className={ styles.loginFormulary }>
                         <div className="row justify-content-center p-3">
-                            <div className="col-12">
+                            <div className="col-xl-12">
                                 <h2 className={ styles.formTitle }>Login</h2>
                             </div>
-                            <div className="col-12">
+                            <div className="col-xl-12">
                                 <form onSubmit={handleLoginForm}>
-                                    <div className="col mb-3">
+                                    <div className="col-xl-12 mb-3">
                                         <input 
                                             type="email" 
                                             className="form-control" 
@@ -62,7 +82,7 @@ export default function Login() {
                                             Informe um e-mail válido.
                                         </div>
                                     </div>
-                                    <div className="col mb-3">
+                                    <div className="col-xl-12 mb-3">
                                         <input 
                                             type="password" 
                                             className='form-control' 
@@ -73,11 +93,12 @@ export default function Login() {
                                             id="passwordHelpBlock" 
                                             className="form-text text-danger" 
                                             hidden={ passwordHelpBlock }
+                                            
                                             >
                                             Sua senha deve conter letras e números.
                                         </div>
                                     </div>
-                                    <div className="col mb-3">
+                                    <div className="col-xl-12 mb-3">
                                         <div className="form-check">
                                             <input 
                                                 className="form-check-input" 
@@ -88,19 +109,22 @@ export default function Login() {
                                                 onChange={ (event) => setRememberMe(event.target.checked) }
                                                 checked={ rememberMe }
                                                 />
-                                            <label className="form-check-label" htmlFor="agreeTerms">
+                                            <label 
+                                                className="form-check-label" 
+                                                htmlFor="agreeTerms"
+                                                style={{fontSize: ".8rem"}} >
                                                 Lembrar-me neste dispositivo
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="col d-grid">
+                                    <div className="col-xl-12 d-grid">
                                         <button type='submit' className='btn btn-primary'>Entrar</button>
                                     </div>
                                 </form>
-                                <div className="col my-3">
+                                <div className="col-xl-12 my-3">
                                     <a href='#' className={ styles.forgotMyPassword }>Esqueci minha senha</a>
                                 </div>
-                                <div className="col my-3 text-center">
+                                <div className="col-xl-12 my-3 text-center">
                                     <Link href="/signup" className={ styles.signUp }>Quero me cadastrar!</Link>
                                 </div>
                             </div>
