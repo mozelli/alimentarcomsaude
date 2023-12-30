@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+*, button, input {
+    border: 0;
+    outline: 0;
+}
+
+body {
+    overflow-y: scroll;
+    
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+:root {
+    --color-teal-800: #0d503c;
+    --color-teal-100: #d2f4ea;
+
+    --color-green-300: #75b798;
+    --color-green-700: #0f5132;
+
+    --color-grey-100: #f8f9fa;
+    --color-grey-200: #e9ecef;
+    --color-grey-500: #adb5bd;
+    --color-grey-900: #212529;
+    
+    --color-yellow-500: #ffc107;
+    
+    --color-red-600: #b02a37;
+    --color-red-300: #ea868f;
+
+    --color-orange-300: #feb272;
+    
+    --color-indigo-700: #3d0a91;
+    
+    --color-purple-600: #59359a;
+    
+    --color-blue-700: #084298;
+    
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+}
