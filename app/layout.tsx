@@ -1,11 +1,10 @@
-import type { Metadata } from 'next'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import './globals.scss'
-import { Nunito } from 'next/font/google'
+import type { Metadata } from 'next';
+import './globals.css';
+import { Nunito } from 'next/font/google';
 
-const nunito = Nunito({
+const font = Nunito({
     subsets: ['latin'],
-    weight: ['400', '700']
+    weight: ['200', '400', '500', '700']
 })
 
 export const metadata: Metadata = {
@@ -16,7 +15,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: {children: React.ReactNode}) {
   return (
     <html lang="pt-br">
-      <body style={ nunito.style }>{children}</body>
+      <body style={ font.style }>
+        {children}
+      </body>
     </html>
   )
 }
