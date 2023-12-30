@@ -1,12 +1,13 @@
+import React from 'react';
+import styles from './styles.module.scss';
+import Login from './login/page';
 
-import Login from './login/page'
-//import styles from './page.module.scss'
-//import SignUp from './signup/page'
-
-export default function Home() {
+const app: React.FC = () => {
   return (
-    <main>
+    <main className={styles.layout}>
       <Login />
     </main>
-  )
+  );
 }
+
+export default app;

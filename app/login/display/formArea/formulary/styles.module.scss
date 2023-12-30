@@ -1,0 +1,50 @@
+.formulary {
+    margin-top: 30px;
+    width: 450px;
+
+    button {
+        background-color: var(--color-yellow-500);
+        margin-top: 8px;
+    }
+
+    .registerLink {
+        text-align: center;
+        background-color: var(--color-teal-100);
+        margin: 2rem 8px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 4px;
+        transition: 300ms ease-in-out;
+        
+        &:hover {
+            background-color: var(--color-white);
+        }
+        a {
+            text-decoration: none;
+            color: var(--color-teal-800);
+            display: block;
+            padding: 10px 8px;
+        }
+    }
+    .agreements {
+        margin: 0 8px;
+
+        p {
+            font-size: .8rem;
+            color: var(--color-green-300);
+
+            a {
+                text-decoration: none;
+                color: var(--color-teal-100);
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .invalidFeedback {
+        color: var(--color-orange-300);
+    }
+}

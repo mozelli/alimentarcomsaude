@@ -1,0 +1,19 @@
+.container {
+    margin: 8px;
+
+    button {
+        width: 100%;
+        padding: 12px 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-teal-800);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 300ms ease-in-out;
+
+        &:hover {
+            background-color: var(--color-white);
+        }
+    }
+
+}

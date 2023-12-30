@@ -1,0 +1,54 @@
+.post {
+    background-color: var(--color-white);
+    padding: 1rem;
+    margin: .5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .postHeader {
+        display: flex;
+        flex-direction: row;
+
+        .postInfo {
+            margin-left: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .infoHeader {
+                display: flex;
+
+                .author {
+                    font-weight: 700;
+                }
+
+                .followButton {
+                    a {
+                        text-decoration: none;
+                        margin-left: 1rem;
+                        font-weight: 700;
+                        color: var(--color-red-300);
+                    }
+                }
+            }
+
+            .postDate {
+                font-size: .8rem;
+                color: var(--color-green-300);
+            }
+        }
+    }
+
+    .postText {
+        p {
+            margin-bottom: 8px;
+        }
+    }
+
+    .postImage {
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
+    }
+}

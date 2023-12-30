@@ -1,0 +1,10 @@
+.menu {
+    grid-area: 'ME';
+    display: flex;
+    flex-direction: column;
+    margin-top: .5rem;
+    gap: .5rem;
+
+    height: 100vh;
+    overflow-y: scroll;
+}

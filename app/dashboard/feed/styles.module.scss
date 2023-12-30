@@ -1,0 +1,14 @@
+.feed {
+    grid-area: 'FE';
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100vh;
+    margin: 0 3rem;
+    overflow-y: scroll;
+    
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}

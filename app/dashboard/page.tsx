@@ -1,23 +1,18 @@
-import DashboardHeader from '../components/dashboardHeader/page';
-import Footer from '../components/footer/page';
-import styles from './dashboard.module.scss'
-import Display from '../components/display/page';
-import NavBar from '../components/navBar';
+import React from 'react';
+import Menu from './menu';
 
-const Dashboard = () => {
-    return (
-        <>
-            <DashboardHeader />
-            <div className={ styles.dashboard }>
+import styles from './styles.module.scss';
+import Feed from './feed';
+import Info from './info';
 
-                <div className={ styles.display }>
-                    <NavBar />
-                    <Display />
-                </div>
-            </div>
-            <Footer />
-        </>
-    )
+const Dashboard: React.FC = () => {
+  return (
+    <>
+      <Menu />
+      <Feed />
+      <Info />
+    </>
+  );
 }
 
 export default Dashboard;
