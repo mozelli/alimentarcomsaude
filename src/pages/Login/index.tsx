@@ -1,8 +1,16 @@
 import React from 'react';
+import { loginWithGoogle } from '../../services/loginWithGoogle';
 
 const Login: React.FC = () => {
+
+    async function googleLogin() {
+        await loginWithGoogle();
+    }
+
   return (
-    <h1 className='text-3xl'>Alimentar com Saúde</h1>
+    <main>
+        <button onClick={googleLogin}>Google</button>
+    </main>
   );
 }
 
