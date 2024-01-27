@@ -1,11 +1,11 @@
-import Login from "./pages/Login"
+import { Outlet } from "react-router"
 
 function App() {
 
   return (
     <>
-      <main className="bg-slate-500">
-        <Login />
+      <main>
+        <Outlet />
       </main>
     </>
   )
