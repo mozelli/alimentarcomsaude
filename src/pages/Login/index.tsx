@@ -1,8 +1,8 @@
-'use client'
 import { useForm } from 'react-hook-form';
 import { Envelope, Lock, GoogleLogo } from '@phosphor-icons/react'
 import { loginWithGoogle } from '../../services/loginWithGoogle'
-import { Link } from 'react-router-dom';
+import { loginWithEmailAndPassword } from '../../services/loginWithEmailAndPassword';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface IFormData {
   email: string;
@@ -11,21 +11,20 @@ interface IFormData {
 
 function Login(){
   const { register, handleSubmit, formState: {errors} } = useForm<IFormData>();
+  const navigate = useNavigate();
 
-    async function googleButtonHandler() {
-        const userIsLogged = await loginWithGoogle();
-        console.log(userIsLogged);
-    }
+  async function googleButtonHandler() {
+    const userIsLogged = await loginWithGoogle();
+    console.log(userIsLogged);
+  }
   
-  const loginWithEmailAndPassword = async () => {
-    // const auth = getAuth(app);
-    // try {
-    //   const credentials = await signInWithEmailAndPassword(auth, data.email, data.password);
-    //   console.log(credentials);
-    // } catch(error) {
-    //   localStorage.removeItem('user');
-    //   console.error(error);
-    // }
+  async function formHandler(data: any) {
+    const result = await loginWithEmailAndPassword(data);
+    if(result) {
+      navigate('/dashboard');
+    } else {
+      console.log("Error");
+    }
   }
 
   return (
@@ -33,7 +32,7 @@ function Login(){
       <div>
         <h1 className='text-6xl font-bold text-emerald-800 drop-shadow-md text-center pb-16'>Alimentar com Saúde</h1>
         <div className="flex flex-col items-center content-center justify-center">
-          <form className='w-1/2' onSubmit={handleSubmit(loginWithEmailAndPassword)}>
+          <form className='w-1/2' onSubmit={handleSubmit(formHandler)}>
             <div className={`border rounded h-10 px-2 flex items-center bg-white ${errors.email ? "border-red-500" : ""}`}>
               <Envelope size={24} fill={`${errors.email ? "#f87171" : ""}`} />
               <input 
