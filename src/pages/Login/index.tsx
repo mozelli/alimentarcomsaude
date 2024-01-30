@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { Envelope, Lock, GoogleLogo } from '@phosphor-icons/react'
 import { loginWithGoogle } from '../../services/loginWithGoogle'
-import { loginWithEmailAndPassword } from '../../services/loginWithEmailAndPassword';
+import { 
+  loginWithEmailAndPassword 
+} from '../../services/loginWithEmailAndPassword';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface IFormData {
@@ -10,7 +12,12 @@ interface IFormData {
 }
 
 function Login(){
-  const { register, handleSubmit, formState: {errors} } = useForm<IFormData>();
+  const { 
+    register, 
+    handleSubmit, 
+    formState: {errors} 
+  } = useForm<IFormData>();
+  
   const navigate = useNavigate();
 
   async function googleButtonHandler() {
@@ -20,11 +27,19 @@ function Login(){
   
   async function formHandler(data: any) {
     const result = await loginWithEmailAndPassword(data);
-    if(result) {
-      navigate('/dashboard');
+    if(result.error !== null) {
+      if(result.error.code === "auth/invalid-credential"){
+        alert("Ops! Dados incorretos.")
+      } else {
+        if (result.error === "pending-email-verification") {
+          navigate('/register/email-not-validated');
+        } else {
+          console.error(result);
+        }
+      }
     } else {
-      console.log("Error");
-    }
+      navigate('/dashboard');
+      }
   }
 
   return (

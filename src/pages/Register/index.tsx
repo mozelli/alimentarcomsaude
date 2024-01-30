@@ -16,7 +16,13 @@ export default function Register() {
   const navigate = useNavigate()
 
   async function handleFormLogin(data: any) {
-    await registerWithLoginAndPassword(data);
+    const result = await registerWithLoginAndPassword(data);
+    if(result.error !== null) {
+      if(result.error.code === "auth/email-already-in-use") {
+        navigate('email-not-validated');
+        return;
+      }
+    }
     navigate(`confirmation?email=joaomozelli@hotmail.com`);
   }
 

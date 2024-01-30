@@ -2,7 +2,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerifi
 import { app } from './firebaseConfig';
 import { IFormData } from '../pages/Register'
 
-async function registerWithLoginAndPassword(data: IFormData): Promise<boolean> {
+async function registerWithLoginAndPassword(data: IFormData) {
   const auth = getAuth(app);
   try {
     await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -19,10 +19,9 @@ async function registerWithLoginAndPassword(data: IFormData): Promise<boolean> {
     await sendEmailVerification(user);
     console.log("E-mail de verificação enviado!");
 
-    return true;
+    return { error: null };
   } catch(error) {
-    console.log("Erro - registro do usuáio no Firebase.", error)
-    return false; 
+    return { error }
   }
 }
 

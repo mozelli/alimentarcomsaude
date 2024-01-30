@@ -1,17 +1,21 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { app } from "./firebaseConfig";
 
 function userIsLogged() {
-  const auth = getAuth();
+  const auth = getAuth(app);
+  
   onAuthStateChanged(auth, (user) => {
-    const navigate = useNavigate();
-    
-    if (user) {
-      return true;
-    } else {
-      console.log('User not logged in.');
-      return false;
+    if (user){
+      if(user.emailVerified) {
+        console.log("Verified", user.emailVerified);
+        return { error: null, user };
+      } else {
+        console.log("Verified", user.emailVerified);
+        return { error: 'pending-email-verification', user: null }
+      }
     }
+    console.log("User: ", user);
+    return { error: 'user-not-logged', user: null };
   });
 }
 
